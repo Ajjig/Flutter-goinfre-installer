@@ -54,9 +54,9 @@ get_android_studio_link()
 
 
 
-if [ -d "$ANDROID_STUDIO_HOME/Android\ Studio.app" ]
+if [ -d "$ANDROID_STUDIO_HOME/Android Studio.app" ]
 then
-	echo $RED "\nandroid studio already installed" $NC
+	echo $RED "Android Studio already installed" $NC
 
 else
 	printf "$BOLD Android-Studio isn't found. Do you want to install it ? (y/n) $NC"
