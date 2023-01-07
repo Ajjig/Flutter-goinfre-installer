@@ -12,8 +12,12 @@ bash ./installer.sh
 export PATH="$PATH:$HOME/goinfre/flutter/bin"
 export PATH="$PATH:$HOME/goinfre/flutter/bin/cache/dart-sdk/bin"
 ```
-4. Restart your terminal
-5. Don't forget to change SDK location in Android Studio to goinfre
+4. Restart your terminal or run:
+
+6. ```bash
+7. source ~/.zshrc
+8. ```
+9. Don't forget to change SDK location in Android Studio to goinfre
 
 
 ## For lazy people
