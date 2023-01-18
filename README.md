@@ -16,7 +16,8 @@ export PATH="$PATH:$HOME/goinfre/flutter/bin/cache/dart-sdk/bin"
 ```bash
 source ~/.zshrc
 ```
-5. Don't forget to change SDK location in Android Studio to goinfre
+5. Don't forget to change SDK location in Android Studio to goinfre 👇👇
+<img width="799" alt="ScreenShot" src="https://user-images.githubusercontent.com/74059327/213250792-3a9af0eb-fbe0-4d82-aa9b-072ddda55c3e.png">
 
 ## For lazy people
 ```bash
