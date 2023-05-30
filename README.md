@@ -1,5 +1,5 @@
 # Flutter-goinfre-installer
-A script to set up Flutter framework and latest version of Android Studio for 42 students in the goinfre directory.
+A script to set up Flutter framework and latest version of Android Studio for 42 / 1337 students in the goinfre directory.
 
 ## How to use
 1. Clone the repository
