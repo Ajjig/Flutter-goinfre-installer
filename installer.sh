@@ -189,7 +189,7 @@ if [ -f ~/.zshrc ] && [ $(grep -c "##-----> FLUTTER GOINFRE INSTALLER <-----##" 
 fi
 
 echo $GREEN "DONE!" $NC
-echo $BOLD "     - Open a new terminal or run 'source ~/.zshrc' to apply changes"
+echo "     - Open a new terminal or run 'source ~/.zshrc' to apply changes"
 echo "     - When you open Android Studio, make sure to install android SDK in ~/goinfre/android"
 echo "     - To accept android studio license run 'flutter doctor --android-licenses'"
-echo "     - It is recommended to you use a physical device since emulator might not work" $NC
+echo "     - It is recommended to you use a physical device since emulator might not work"
