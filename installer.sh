@@ -20,6 +20,7 @@ mkdir -p ~/goinfre/dart
 mkdir -p ~/goinfre/dart-tool
 mkdir -p ~/goinfre/dartServer
 mkdir -p ~/goinfe/dot-android
+mkdir -p ~/goinfre/android
 
 
 # remove files if theyre not symlinks
