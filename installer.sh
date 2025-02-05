@@ -16,40 +16,29 @@ setup_emulator_to_run="n"
 ############################# CREATING FOLDERS #############################
 
 echo $BLUE "creating folders..." $NC
-mkdir -p ~/goinfre/gradle
-mkdir -p ~/goinfre/local
-mkdir -p ~/goinfre/dart
-mkdir -p ~/goinfre/dart-tool
-mkdir -p ~/goinfre/dartServer
-mkdir -p ~/goinfre/dot-android
+mkdir -p ~/goinfre/.gradle
+mkdir -p ~/goinfre/.local
+mkdir -p ~/goinfre/.dart
+mkdir -p ~/goinfre/.dart-tool
+mkdir -p ~/goinfre/.dartServer
+mkdir -p ~/goinfre/.android
 mkdir -p ~/goinfre/android
 
 
 # remove files if theyre not symlinks
-for file in .gradle .local .dart-tool .dartServer .dart .android
+for file in ~/.gradle ~/.local ~/.dart-tool ~/.dartServer ~/.dart ~/.android
 do
     if [ -f ~/$file ] && [ ! -L ~/$file ]
     then
       rm -rf ~/$file
-      echo "Removed ~/$file"
+			ln -s "~/goinfre/$file" $file
+			echo "Symlink created for $file"
     else
-      echo "Symlink already exists for ~/$file"
+      echo "Symlink already exists for $file"
     fi
 
 done
 
-ln -s ~/goinfre/local .local 2> /dev/null
-echo $BLUE ".local -> ~/goinfre/local"
-ln -s ~/goinfre/gradle .gradle 2> /dev/null
-echo ".gradle -> ~/goinfre/gradle"
-ln -s ~/goinfre/dart-tool .dart-tool 2> /dev/null
-echo ".dart-tool -> ~/goinfre/dart-tool"
-ln -s ~/goinfre/dart .dartServer 2> /dev/null
-echo ".dartServer -> ~/goinfre/dartServer"
-ln -s ~/goinfre/dart .dart 2> /dev/null
-echo ".dart -> ~/goinfre/dart"
-ln -s ~/goinfre/dot-android .android 2> /dev/null
-echo ".android -> ~/goinfre/dot-android" $NC
 
 
 
@@ -162,14 +151,16 @@ if [ $setup_emulator_to_run == "y" ]
 			then
 				echo $RED "To setup emulator, run android studio and install android SDK" $NC
 			else
+				rm -rf ~/goinfre/tmp
 				mkdir -p ~/goinfre/tmp/
 				echo $BLUE "Setting up emulator..." $NC
 				echo $BLUE "Downloading emulator..." $NC
-				curl -L -o ~/goinfre/tmp/emulator.zip $EMULATOR_DOWNLOAD_LINK &> /dev/null
+				curl -L -o ~/goinfre/tmp/emulator.zip $EMULATOR_DOWNLOAD_LINK
 				echo $BLUE "Unzipping emulator..." $NC
 				unzip ~/goinfre/tmp/emulator.zip -d ~/goinfre/tmp/emulator &> /dev/null
+				echo $BLUE "Copying emulator..." $NC
 				cp -r ~/goinfre/tmp/emulator/emulator/* ~/goinfre/android/emulator/ &> /dev/null
-				# rm -rf ~/goinfre/tmp
+				rm -rf ~/goinfre/tmp
 				echo $BLUE "Emulator setup complete" $NC
 		fi
 fi
