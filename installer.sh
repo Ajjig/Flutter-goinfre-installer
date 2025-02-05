@@ -7,6 +7,7 @@ EMULATOR_DOWNLOAD_LINK="https://dl.google.com/android/repository/emulator-darwin
 BLUE=$'\033[0;34m'
 RED=$'\033[0;91m'
 BOLD=$'\033[1;31m'
+GREEN=$'\033[0;32m'
 NC=$'\033[0;39m'
 
 install_flutter="n"
@@ -47,8 +48,10 @@ done
 
 echo $BOLD $RED "Would you like to install flutter? (y/n)" $NC
 read -n 1 install_flutter
+echo
 echo $BOLD $RED "Would you like to install android studio? (y/n)" $NC
 read -n 1 install_android_studio
+echo
 echo $BOLD $RED "Would you touch your SDK files so emulator can run? (y/n)" $NC
 read -n 1 setup_emulator_to_run
 
@@ -73,12 +76,14 @@ else
 	if [ $install_flutter == "y" ]
 	then
 		mkdir -p $FLUTTER_HOME
-		echo $BLUE "\ninstalling flutter..."$NC
+		echo
+		echo $BLUE "Installing flutter..."$NC
 		# cloning flutter repo
 		git clone https://github.com/flutter/flutter.git -b stable $FLUTTER_HOME &> /dev/null
 
 		echo $BLUE "flutter precache..." $NC
 		flutter precache &> /dev/null
+		echo $GREEN "flutter installed" $NC
 	fi
 
 fi
@@ -102,11 +107,12 @@ get_android_studio_link()
 
 if [ -d "$ANDROID_STUDIO_HOME/Android Studio.app" ]
 then
-	echo $RED "Android Studio already installed" $NC
+	echo $GREEN "Android Studio already installed" $NC
 else
 
 	if [ $install_android_studio == "y" ]
 	then
+		echo
 		echo $BLUE "Getting Android-Studio latest version..." $NC
 		get_android_studio_link
 
@@ -137,7 +143,7 @@ else
 		#remove dmg file
 		rm -rf $ANDROID_STUDIO_HOME/android-studio.dmg &> /dev/null
 
-		echo $BLUE "android studio installed" $NC
+		echo $GREEN "android studio installed" $NC
 		# launch android studio
 		open $ANDROID_STUDIO_HOME/Android\ Studio.app
 	fi
@@ -151,6 +157,7 @@ if [ $setup_emulator_to_run == "y" ]
 			then
 				echo $RED "To setup emulator, run android studio and install android SDK" $NC
 			else
+				echo
 				rm -rf ~/goinfre/tmp
 				mkdir -p ~/goinfre/tmp/
 				echo $BLUE "Setting up emulator..." $NC
@@ -161,7 +168,7 @@ if [ $setup_emulator_to_run == "y" ]
 				echo $BLUE "Copying emulator..." $NC
 				cp -r ~/goinfre/tmp/emulator/emulator/* ~/goinfre/android/emulator/ &> /dev/null
 				rm -rf ~/goinfre/tmp
-				echo $BLUE "Emulator setup complete" $NC
+				echo $GREEN "Emulator setup complete" $NC
 		fi
 fi
 
@@ -171,16 +178,18 @@ echo $BLUE "Adding paths to your .zshrc file..." $NC
 
 if [ -f ~/.zshrc ] && [ $(grep -c "##-----> FLUTTER GOINFRE INSTALLER <-----##" ~/.zshrc) -gt 0 ]
 	then
-		echo $BLUE "Paths already added to .zshrc" $NC
+		echo $GREEN "Paths already added to .zshrc" $NC
 	else
 		echo '##-----> FLUTTER GOINFRE INSTALLER <-----##' >> ~/.zshrc
 		echo 'export PATH="$PATH:$HOME/goinfre/flutter/bin"' >> ~/.zshrc
 		echo 'export PATH="$PATH:/Users/$USER/android/platform-tools"' >> ~/.zshrc
 		echo 'export PATH="$PATH:$HOME/goinfre/flutter/bin/cache/dart-sdk/bin"' >> ~/.zshrc
 		echo 'export ANDROID_SDK_ROOT="/Users/$USER/goinfre/android"' >> ~/.zshrc
+		echo $GREEN "Paths added to .zshrc" $NC
 fi
 
-echo $NC "DONE!"
-echo "     - Open a new terminal or run 'source ~/.zshrc' to apply changes"
+echo $GREEN "DONE!" $NC
+echo $BOLD "     - Open a new terminal or run 'source ~/.zshrc' to apply changes"
 echo "     - When you open Android Studio, make sure to install android SDK in ~/goinfre/android"
 echo "     - To accept android studio license run 'flutter doctor --android-licenses'"
+echo "     - It is recommended to you use a physical device since emulator might not work" $NC
