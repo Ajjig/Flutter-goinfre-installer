@@ -1,6 +1,7 @@
 FLUTTER_HOME=/goinfre/$USER/flutter
 ANDROID_STUDIO_HOME=/goinfre/$USER/android-studio
 ANDROID_STUDIO_LINK=""
+EMULATOR_DOWNLOAD_LINK="https://dl.google.com/android/repository/emulator-darwin_x64-7140946.zip"
 
 
 BLUE=$'\033[0;34m'
@@ -10,6 +11,7 @@ NC=$'\033[0;39m'
 
 install_flutter="n"
 install_android_studio="n"
+setup_emulator_to_run="n"
 
 ############################# CREATING FOLDERS #############################
 
@@ -19,7 +21,7 @@ mkdir -p ~/goinfre/local
 mkdir -p ~/goinfre/dart
 mkdir -p ~/goinfre/dart-tool
 mkdir -p ~/goinfre/dartServer
-mkdir -p ~/goinfe/dot-android
+mkdir -p ~/goinfre/dot-android
 mkdir -p ~/goinfre/android
 
 
@@ -58,6 +60,8 @@ echo $BOLD $RED "Would you like to install flutter? (y/n)" $NC
 read -n 1 install_flutter
 echo $BOLD $RED "Would you like to install android studio? (y/n)" $NC
 read -n 1 install_android_studio
+echo $BOLD $RED "Would you touch your SDK files so emulator can run? (y/n)" $NC
+read -n 1 setup_emulator_to_run
 
 if [ $install_flutter == "y" ]
 then
@@ -149,6 +153,28 @@ else
 		open $ANDROID_STUDIO_HOME/Android\ Studio.app
 	fi
 fi
+
+############################# SETUP EMULATOR #############################
+
+if [ $setup_emulator_to_run == "y" ]
+	then
+		if [ -f "~/goinfre/android/emulator/emulator" ]
+			then
+				echo $RED "To setup emulator, run android studio and install android SDK" $NC
+			else
+				mkdir -p ~/goinfre/tmp/
+				echo $BLUE "Setting up emulator..." $NC
+				echo $BLUE "Downloading emulator..." $NC
+				curl -L -o ~/goinfre/tmp/emulator.zip $EMULATOR_DOWNLOAD_LINK &> /dev/null
+				echo $BLUE "Unzipping emulator..." $NC
+				unzip ~/goinfre/tmp/emulator.zip -d ~/goinfre/tmp/emulator &> /dev/null
+				cp -r ~/goinfre/tmp/emulator/emulator/* ~/goinfre/android/emulator/ &> /dev/null
+				# rm -rf ~/goinfre/tmp
+				echo $BLUE "Emulator setup complete" $NC
+		fi
+fi
+
+############################# ADDING PATHS TO .ZSHRC #################################
 
 echo $BLUE "Adding paths to your .zshrc file..." $NC
 
